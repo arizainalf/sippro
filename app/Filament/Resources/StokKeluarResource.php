@@ -23,6 +23,9 @@ class StokKeluarResource extends Resource
 
     protected static ?string $slug = 'stok-keluar';
 
+    protected static ?int $navigationSort = 3;
+
+
     public static function table(Table $table): Table
     {
         return $table

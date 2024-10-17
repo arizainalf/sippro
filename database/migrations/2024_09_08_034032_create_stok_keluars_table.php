@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('stok_keluars', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->date('tanggal');
             $table->unsignedBigInteger('barang_id');
-            $table->string('no_seri');
+            $table->bigInteger('stok');
+            $table->text('keterangan');
             $table->timestamps();
 
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');

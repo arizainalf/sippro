@@ -2,14 +2,15 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BarangResource\Pages;
-use App\Filament\Resources\BarangResource\RelationManagers\DetailStoksRelationManager;
-use App\Models\Barang;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Barang;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Resources\BarangResource\Pages;
+use App\Filament\Resources\BarangResource\RelationManagers\StokMasuksRelationManager;
+use App\Filament\Resources\BarangResource\RelationManagers\StokKeluarsRelationManager;
 
 class BarangResource extends Resource
 {
@@ -19,21 +20,31 @@ class BarangResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama';
 
+    protected static ?string $navigationLabel = 'Produk';
+    
+    protected static ?string $slug = 'produk';
+
+    protected static ?int $navigationSort = 1;
+
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('nama')
-                    ->label('Nama Barang')
+                    ->label('Nama Produk')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('jenis')
-                    ->label('Jenis Barang')
-                    ->options([
-                        'ATM' => 'ATM',
-                        'Buku Tabungan' => 'Buku Tabungan',
+                Forms\Components\Select::make('kategori_id')
+                    ->label('Jenis Produk')
+                    ->relationship('kategori', 'nama')
+                    ->preload()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('nama')
+                            ->label('Jenis Produk')
+                            ->required()
                     ])
-                    ->default('ATM')
                     ->required(),
             ]);
     }
@@ -44,7 +55,7 @@ class BarangResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('nama')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('jenis'),
+                Tables\Columns\TextColumn::make('kategori.nama'),
                 Tables\Columns\TextColumn::make('stok')
                     ->numeric()
                     ->sortable(),
@@ -77,7 +88,8 @@ class BarangResource extends Resource
     public static function getRelations(): array
     {
         return [
-            DetailStoksRelationManager::class,
+            StokMasuksRelationManager::class,
+            StokKeluarsRelationManager::class,
         ];
     }
 
@@ -85,7 +97,7 @@ class BarangResource extends Resource
     {
         return [
             'index' => Pages\ListBarangs::route('/'),
-            'create' => Pages\CreateBarang::route('/create'),
+            // 'create' => Pages\CreateBarang::route('/create'),
             'edit' => Pages\EditBarang::route('/{record}/edit'),
         ];
     }

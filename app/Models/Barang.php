@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Ramsey\Uuid\Uuid;
-use App\Models\DetailStok;
-use Illuminate\Support\Facades\Auth;
+use App\Models\StokMasuk;
+use App\Models\StokKeluar;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,8 +26,14 @@ class Barang extends Model
     {
         return 'uuid';
     }
-    public function detailStoks() {
-        return $this->hasMany(DetailStok::class);
+    public function stokMasuks() {
+        return $this->hasMany(StokMasuk::class);
+    }
+    public function stokKeluars() {
+        return $this->hasMany(StokKeluar::class);
+    }
+    public function kategori() {
+        return $this->belongsTo(Kategori::class);
     }
 
 

@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('detail_stoks', function (Blueprint $table) {
+        Schema::create('stok_masuks', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->date('tanggal');
             $table->unsignedBigInteger('barang_id');
-            $table->string('no_seri');
+            $table->bigInteger('stok');
+            $table->text('keterangan');
             $table->timestamps();
 
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('detail_stoks');
+        Schema::dropIfExists('stok_masuks');
     }
 };

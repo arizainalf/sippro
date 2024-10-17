@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\BarangResource\Widgets;
 
 use App\Models\Barang;
-use App\Models\DetailStok;
 use App\Models\StokKeluar;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -16,14 +15,13 @@ class StokBarangOverview extends BaseWidget
     {
         $listBarang = Barang::all();
         $barang = Barang::count();
-        $detailStok = DetailStok::count();
         $stokKeluar = StokKeluar::count();
 
         $stats = [];
 
         // Loop untuk setiap barang
         foreach ($listBarang as $b) {
-            $stats[] = Stat::make($b->nama, $b->detailStoks()->count())
+            $stats[] = Stat::make($b->nama, $b->stokMasuks()->count())
                 ->icon('heroicon-m-user')
                 ->chart([1, 6, 10, 5, 14])
                 ->color('success');
@@ -34,11 +32,6 @@ class StokBarangOverview extends BaseWidget
             ->icon('heroicon-m-building-office')
             ->chart([1, 6, 10, 5, 14])
             ->color('primary');
-
-        $stats[] = Stat::make('Total Stok', $detailStok)
-            ->icon('heroicon-m-user')
-            ->chart([1, 6, 10, 5, 14])
-            ->color('success');
 
         $stats[] = Stat::make('Stok Keluar', $stokKeluar)
             ->icon('heroicon-m-user')

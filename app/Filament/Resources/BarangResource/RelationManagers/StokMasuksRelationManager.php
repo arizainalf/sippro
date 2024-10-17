@@ -11,30 +11,29 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\RelationManagers\RelationManager;
 
-class StokKeluarsRelationManager extends RelationManager
+class StokMasuksRelationManager extends RelationManager
 {
-    protected static string $relationship = 'stokKeluars';
+    protected static string $relationship = 'stokMasuks';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\DatePicker::make('tanggal')
-                ->required()
-                ->label('Tanggal Keluar')
-                ->default(now()),
-            Forms\Components\Select::make('barang_id')
-                ->label('Produk')
-                ->options(Barang::all()->pluck('nama', 'id'))
-                ->required(),
-            Forms\Components\TextInput::make('stok')
-                ->label('Stok Keluar')
-                ->required()
-                ->numeric(),
-            Forms\Components\Textarea::make('keterangan')
-                ->label('Keterangan')
-                ->required()
-                ->columnSpanFull(),
+                    ->required()
+                    ->label('Tanggal Masuk')
+                    ->default(now()),
+                Forms\Components\Select::make('barang_id')
+                    ->label('Produk')
+                    ->options(Barang::all()->pluck('nama', 'id'))
+                    ->required(),
+                Forms\Components\TextInput::make('stok')
+                    ->label('Stok Masuk')
+                    ->required()
+                    ->numeric(),
+                Forms\Components\Textarea::make('keterangan')
+                    ->label('Keterangan')
+                    ->required(),
             ]);
     }
 

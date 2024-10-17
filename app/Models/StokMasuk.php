@@ -7,7 +7,7 @@ use App\Models\Barang;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class DetailStok extends Model
+class StokMasuk extends Model
 {
     use HasFactory;
 
