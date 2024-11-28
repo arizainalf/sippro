@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('')
             ->spa()
+            ->darkMode(false)
             ->login()
             ->topNavigation()
             ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
@@ -42,7 +43,6 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 StokBarangOverview::class,
-                Widgets\AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

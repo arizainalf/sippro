@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Stok;
 use Ramsey\Uuid\Uuid;
 use App\Models\StokMasuk;
 use App\Models\StokKeluar;
@@ -29,8 +30,12 @@ class Barang extends Model
     public function stokMasuks() {
         return $this->hasMany(StokMasuk::class);
     }
+
     public function stokKeluars() {
         return $this->hasMany(StokKeluar::class);
+    }
+    public function stoks() {
+        return $this->hasMany(Stok::class);
     }
     public function kategori() {
         return $this->belongsTo(Kategori::class);
